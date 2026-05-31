@@ -1,95 +1,93 @@
-import 'Entity/Product.dart';
-import 'Repository/ProductDAO.dart';
+import 'package:flutter/material.dart';
+
+import 'ex1/core_widgets_demo.dart';
+import 'ex2/input_widget_demo.dart';
+import 'ex3/layout_basics.dart';
+import 'ex4/app_structure.dart';
+import 'ex5/common_ui_errors_demo.dart';
 
 void main() {
+  runApp(const MyApp());
+}
 
-  ProductDAO dao = ProductDAO();
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-  print("===== Product List =====");
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Lab 4',
+      home: const HomePage(),
+    );
+  }
+}
 
-  for (var p in dao.getAll()) {
-    print("${p.id} - ${p.name} - ${p.price}");
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Lab 4 - Flutter UI Fundamentals'),
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(12),
+        children: [
+
+          buildItem(
+            context,
+            "Exercise 1 - Core Widgets Demo",
+            const CoreWidgetsDemo(),
+          ),
+
+          buildItem(
+            context,
+            "Exercise 2 - Input Controls Demo",
+            const InputControlsDemo(),
+          ),
+
+          buildItem(
+            context,
+            "Exercise 3 - Layout Demo",
+            const LayoutBasicsDemo(),
+          ),
+
+          buildItem(
+            context,
+            "Exercise 4 - App Structure & Theme",
+            const AppStructureDemo(),
+          ),
+
+          buildItem(
+            context,
+            "Exercise 5 - Common UI Fixes",
+            const CommonUiErrorsDemo(),
+          ),
+        ],
+      ),
+    );
   }
 
-
-  dao.add(
-    Product(
-      id: "P04",
-      name: "Mango",
-      image: "mango.png",
-      price: 30,
-    ),
-  );
-
-  print("\n===== After Add =====");
-
-  for (var p in dao.getAll()) {
-    print("${p.id} - ${p.name} - ${p.price}");
-  }
-
-
-  dao.edit(
-    Product(
-      id: "P01",
-      name: "Green Apple",
-      image: "apple.png",
-      price: 50,
-    ),
-  );
-
-  print("\n===== After Edit =====");
-
-  for (var p in dao.getAll()) {
-    print("${p.id} - ${p.name} - ${p.price}");
-  }
-
-
-  List<Product> result = dao.search("ap");
-
-  print("\n===== Search Result =====");
-
-  for (var p in result) {
-    print("${p.name} - ${p.price}");
-  }
-
-
-  Product? found = dao.find("P02");
-
-  print("\n===== Find Product =====");
-
-  if (found != null) {
-    print("${found.name} - ${found.price}");
-  }
-
-
-  dao.increasePrice();
-
-  print("\n===== After Increase 10% =====");
-
-  for (var p in dao.getAll()) {
-    print("${p.name} - ${p.price}");
-  }
-
-
-  print("\n===== Sort Asc =====");
-
-  for (var p in dao.sortPriceAsc()) {
-    print("${p.name} - ${p.price}");
-  }
-
-
-  print("\n===== Sort Desc =====");
-
-  for (var p in dao.sortPriceDesc()) {
-    print("${p.name} - ${p.price}");
-  }
-
-
-  dao.delete("P03");
-
-  print("\n===== After Delete =====");
-
-  for (var p in dao.getAll()) {
-    print("${p.name} - ${p.price}");
+  Widget buildItem(
+      BuildContext context,
+      String title,
+      Widget screen,
+      ) {
+    return Card(
+      child: ListTile(
+        title: Text(title),
+        trailing: const Icon(Icons.arrow_forward_ios),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => screen,
+            ),
+          );
+        },
+      ),
+    );
   }
 }
