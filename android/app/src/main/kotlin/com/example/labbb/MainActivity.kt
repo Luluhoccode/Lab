@@ -1,4 +1,4 @@
-package com.example.prm
+package com.example.labbb
 
 import io.flutter.embedding.android.FlutterActivity
 
