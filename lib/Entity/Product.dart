@@ -1,70 +1,48 @@
+import 'package:flutter/cupertino.dart';
+
 class Product {
-
-  final String id;
   final String name;
-  final String image;
-  final double price;
-
-
+  final String id;
+  final String? image;
+  double price;
   Product({
-    required this.id,
     required this.name,
-    required this.image,
+    required this.id,
+    this.image,
     required this.price,
   });
-
-
-  const Product.constProduct({
-    required this.id,
-    required this.name,
-    required this.image,
-    required this.price,
-  });
-
-
   factory Product.fromJson(Map<String, dynamic> json) {
-
     return Product(
-      id: json['id'],
       name: json['name'],
+      id: json['id'],
       image: json['image'],
-      price: json['price'].toDouble(),
+      price: json['price'],
+    );
+  }
+  Map<String, dynamic> toJson() {
+    return {'name': name, 'id': id, 'image': image, 'price': price};
+  }
+
+  @override
+  String toString() {
+    return 'Product{name: $name, id: $id, image: $image, price: $price}';
+  }
+
+  Product copyWith({String? name, String? id, String? image, double? price}) {
+    return Product(
+      name: name ?? this.name,
+      id: id ?? this.id,
+      image: image ?? this.image,
+      price: price ?? this.price,
     );
   }
 
-
-  Map<String, dynamic> toJson() {
-
-    return {
-      'id': id,
-      'name': name,
-      'image': image,
-      'price': price,
-    };
-  }
-
-
   static List<Product> products = [
-
-    Product(
-      id: "P01",
-      name: "Apple",
-      image: "apple.png",
-      price: 10,
-    ),
-
-    Product(
-      id: "P02",
-      name: "Orange",
-      image: "orange.png",
-      price: 20,
-    ),
-
-    Product(
-      id: "P03",
-      name: "Banana",
-      image: "banana.png",
-      price: 15,
-    ),
+    Product(id: "P01", name: "Iphone 14", price: 20000),
+    Product(id: "P02", name: "Iphone 15", price: 30000),
+    Product(id: "P03", name: "Iphone 16", price: 40000),
+    Product(id: "P04", name: "Iphone 17", price: 50000),
+    Product(id: "P05", name: "Iphone 18", price: 60000),
+    Product(id: "P06", name: "Iphone 19", price: 70000),
   ];
 }

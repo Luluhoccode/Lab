@@ -1,6 +1,6 @@
 {
-    "name": "prm",
-    "short_name": "prm",
+    "name": "ex1",
+    "short_name": "ex1",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
